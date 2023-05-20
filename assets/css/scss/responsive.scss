@@ -4,7 +4,7 @@ $md-device: 720px;
 $sm-device: 540px;
 
 
-@mixin d($device){
+@mixin d4($device){
     @if $device == xs {
         @media (max-width: 575px) {
             @content;
@@ -22,6 +22,34 @@ $sm-device: 540px;
     }
     @if $device == lg {
         @media (max-width: 1199px) {
+            @content;
+        }
+    }
+}
+
+@mixin d5($device){
+    @if $device == xs {
+        @media (max-width: 575px) {
+            @content;
+        }
+    }
+    @if $device == sm {
+        @media (max-width: 767px) {
+            @content;
+        }
+    }
+    @if $device == md {
+        @media (max-width: 991px) {
+            @content;
+        }
+    }
+    @if $device == lg {
+        @media (max-width: 1199px) {
+            @content;
+        }
+    }
+    @if $device == xl {
+        @media (max-width: 1399px) {
             @content;
         }
     }
