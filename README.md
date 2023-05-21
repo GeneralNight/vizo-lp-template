@@ -78,6 +78,10 @@ Para o deploy, ou seja colocar o site no ar, não é necessário subir todos os 
 - Todos os `arquivos.html`
 - A pasta de assets
 
+Ou, para facilitar, voce pode rodar o comando: <br/>
+`gulp toDeploy`<br/>
+Ele gerará uma pasta `build` com os arquivos necessários.
+
 
 
 

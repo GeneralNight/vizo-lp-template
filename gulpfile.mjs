@@ -19,7 +19,7 @@ const browserSynced = browserSync.create();
 
 
 // Minify images
-export const imageMin = () => {
+export const imageMin = async () => {
   const imageOptimization = [
     imageminGifsicle({ interlaced: true }),
     imageminMozjpeg({ quality: 20, progressive: true }),
@@ -37,14 +37,39 @@ export const imageMin = () => {
 }
 
 // Webp images
-export const webP = () => {
+export const webP = async () => {
   return src(["assets/imgs/*", "!assets/imgs/webp", "!assets/imgs/minifyed"])
     .pipe(webp())
     .pipe(gulp.dest("assets/imgs/webp/"));
 }
 
+export const toDeploy = async () => {
+  compileSass(),
+  gulpJS(),
+  imageMin(),
+  webP(),
+  
+  gulp.src(["*.html"]).pipe(gulp.dest("build/"))
+  gulp.src(["assets/css/styles.css"]).pipe(gulp.dest("build/assets/css/"))
+  gulp.src(["assets/js/main.js"]).pipe(gulp.dest("build/assets/js/"))
+  
+    gulp.src(["assets/imgs/"], {allowEmpty: true}).pipe(gulp.dest("build/assets/imgs/"))    
+  
+  
+    gulp.src(["assets/imgs/minifyed"], {allowEmpty: true}).pipe(gulp.dest("build/assets/imgs/minifyed"))    
+  
+  
+    gulp.src(["assets/imgs/webp"], {allowEmpty: true}).pipe(gulp.dest("build/assets/imgs/webp"))
+  
+  
+    gulp.src(["assets/fonts/"], {allowEmpty: true}).pipe(gulp.dest("build/assets/fonts"))
+  
+  
+      
+}
+
 // Compile Sass
-export const compileSass = () => {
+export const compileSass = async () => {
   return gulp
     .src("assets/css/scss/**/*.scss")
     .pipe(sass({ outputStyle: "compressed" }))
@@ -58,7 +83,7 @@ export const compileSass = () => {
 }
 
 // gulpJS
-export const gulpJS = () => {
+export const gulpJS = async () => {
   return gulp
     .src(["assets/js/components/*.js"])
     .pipe(concat("main.js"))
